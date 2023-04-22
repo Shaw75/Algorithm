@@ -748,3 +748,67 @@ public:
 
     }
 };
+
+
+//最小化排队等待时间
+/*
+ 有 n 个人在等待办理事务，其中第 i 个人的事务需要 w[i] 分钟完成。现在希望你安排他们办理事务的顺序，从而使得每个人的等待时间之和最小，并返回最小的排队等待时间总和。
+
+示例 1：
+
+输入：w = [1,3,2]
+
+输出：4
+
+解释：
+
+首先安排第一个人办理，第一个人等待时间为 0。需要 1 分钟。
+然后安排第三个人办理，第三个人等待第一个人等待了 1 分钟，他自己的业务办理需要 2 分钟。
+最后安排第二个人办理，他已经等待了 3 分钟，他自身的业务办理需要 3 分钟。
+第三个人等待了 1 分钟，第二个人等待了 3 分钟，因此总的等待时间是 4 分钟。这是最少的等待方案。
+
+提示：
+
+1 <= w.length <= 10^4
+1 <= w[i] <= 100
+
+ */
+class Solution32 {
+public:
+    int minimumWaitingTime(vector<int>& w) {
+        int n = w.size();
+        std::sort(w.begin(), w.end());
+        int res = 0;
+        for (int i = 0; i < n; ++i) {
+            res+= w[i]*(n-1-i);
+        }
+        return res;
+    }
+};
+
+
+
+/*
+  统计出现次数
+给定一个有序数组 nums，以及一个目标数 target。返回数组 nums 中 target 的出现次数。
+
+请你实现时间复杂度为 O(logn) 并且只使用 常数级别额外空间 的解决方案。
+
+示例 1：
+
+输入：nums = [1,1,2,2,2,2,3,3,5,6,7,7,7], target = 3
+
+输出：2
+
+提示：
+
+1 <= nums.length <= 10^5
+-10^5 <= nums[i], target <= 10^5
+ */
+class Solution30{
+public:
+    int countOccurrences(vector<int>& nums, int target) {
+        return upper_bound(nums.begin(),nums.end(),target)-upper_bound(nums.begin(),nums.end(),target-1);
+    }
+};
+
